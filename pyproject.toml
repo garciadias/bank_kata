@@ -7,8 +7,25 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pydantic = "^2.8.2"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+pytest-cov = "^5.0.0"
+taskipy = "^1.13.0"
+isort = "^5.13.2"
+black = "^24.4.2"
+mypy = "^1.10.1"
+ruff = "^0.5.3"
+ipython = "^8.26.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+test = "pytest --cov=bank_kata tests/"
+lint = "isort . && black . && ruff check --fix"
+pre_test = "task lint"
+post_test = "coverage html"
